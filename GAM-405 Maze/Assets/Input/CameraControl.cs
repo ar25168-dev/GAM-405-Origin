@@ -1,14 +1,14 @@
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 public class CameraControl : MonoBehaviour
-{
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+{
+    [SerializeField] private float sensetivity = 5f;
+    [SerializeField] private Vector2 clampValue = new Vector2(-90f, 90f);
+
+    public InputActionReference cameraAction;
+
+
     void Update()
     {
         
