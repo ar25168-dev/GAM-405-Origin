@@ -130,10 +130,12 @@ GameObject:
   - component: {fileID: 20586939}
   - component: {fileID: 20586942}
   - component: {fileID: 20586941}
-  - component: {fileID: 20586943}
   - component: {fileID: 20586940}
+  - component: {fileID: 20586946}
   - component: {fileID: 20586944}
   - component: {fileID: 20586945}
+  - component: {fileID: 20586947}
+  - component: {fileID: 20586948}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -236,22 +238,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20586938}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &20586943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 20586938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0d498f145ecbc140b6567f506c342b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveAction: {fileID: -335805173039821643, guid: f1c2c740be26a57418bd58b57fa8bfee, type: 3}
-  moveSpeed: 7
-  moveInput: {x: 0, y: 0}
-  rb: {fileID: 0}
 --- !u!54 &20586944
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -291,6 +277,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ad2f0974bf2ea046bfe93fd1ee71a16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
+--- !u!114 &20586946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20586938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1a50af24a67ab540bb41fa5de086def, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRotate
+  sensetivity: 0.1
+  cameraAction: {fileID: 2771841705395909382, guid: f1c2c740be26a57418bd58b57fa8bfee, type: 3}
+--- !u!114 &20586947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20586938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d498f145ecbc140b6567f506c342b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  moveAction: {fileID: -335805173039821643, guid: f1c2c740be26a57418bd58b57fa8bfee, type: 3}
+  moveSpeed: 5
+  moveInput: {x: 0, y: 0}
+  rb: {fileID: 0}
+--- !u!114 &20586948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20586938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab3ff7cf9a61ab643b01cf42cae128d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraControl
+  sensetivity: 0.65
+  clampValue: {x: -90, y: 90}
+  playerCamera: {fileID: 986377660}
 --- !u!1 &26511406
 GameObject:
   m_ObjectHideFlags: 0
