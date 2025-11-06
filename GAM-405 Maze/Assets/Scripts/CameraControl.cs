@@ -10,10 +10,17 @@ public class CameraControl : MonoBehaviour
     private float xRotation;
     public Transform playerCamera;
 
+    public bool isActive;
+
 
 
     void Update()
     {
+        if(!isActive)
+        {
+            return;
+        }
+
         float mouseX = Input.GetAxis("Mouse X") * sensetivity;
         float mouseY = Input.GetAxis("Mouse Y") * sensetivity;
 
