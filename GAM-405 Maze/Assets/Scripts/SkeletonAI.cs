@@ -1,55 +1,33 @@
 using UnityEngine;
 using UnityEngine.AI;
-using System.Collections; 
 
-public class EnemyScript : MonoBehaviour
+public class SkeletonAI : MonoBehaviour
 {
-    [SerializeField] GameObject player;
-    [SerializeField] float detectionCutOff;
     public Transform target; // Drag your target GameObject here in the Inspector
     public float rotationSpeed = 5f; // Adjust rotation speed as needed
 
     private NavMeshAgent agent;
-    private bool playerInSight;
+    public bool playerInSight = false;
 
-
-
-  void Start()
+    void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        // Disable automatic rotation to handle it manually
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+
+        // Ensure updateRotation is false so we can control it manually
         agent.updateRotation = false;
-        playerInSight = false;
     }
 
     void Update()
     {
-        
-        if (agent != null && target != null)
+        if (agent != null && target != null && playerInSight)
         {
             // 1. Set the destination for the NavMeshAgent to handle pathfinding
             agent.SetDestination(target.position);
 
             // 2. Handle the agent's rotation manually
             FaceTarget();
-        } 
-        
-        Vector3 myDir = transform.forward.normalized;
-        Vector3 dirToPlayer = (player.transform.position - this.transform.position).normalized;
-
-        if (Vector3.Dot(myDir, dirToPlayer) > detectionCutOff)
-        {
-            RaycastHit hitInfo;
-            Physics.Raycast(this.transform.position, dirToPlayer, out hitInfo, 100f);
-
-            if (hitInfo.collider.gameObject.gameObject == player)
-            {
-                //return true;
-            }
         }
     }
-    
-  
 
     private void FaceTarget()
     {
@@ -70,8 +48,7 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-
-    void OnTriggerEnter(Collider other)
+      void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
@@ -79,5 +56,6 @@ public class EnemyScript : MonoBehaviour
             playerInSight = true;
         }
     }
+
 
 }
