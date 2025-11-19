@@ -19,6 +19,10 @@ public class SkeletonAI : MonoBehaviour
 
     void Update()
     {
+
+        //set a condition to stop chasing player <<<<<<<<<
+
+
         if (agent != null && target != null && playerInSight)
         {
             // 1. Set the destination for the NavMeshAgent to handle pathfinding
