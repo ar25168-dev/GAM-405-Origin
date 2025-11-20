@@ -6,5 +6,6 @@ public class NewMonoBehaviourScript : MonoBehaviour
     void Start()
     {
      Cursor.lockState = CursorLockMode.Locked;   
+     //Cursor.lockState = CursorLockMode.None;
     }
 }
