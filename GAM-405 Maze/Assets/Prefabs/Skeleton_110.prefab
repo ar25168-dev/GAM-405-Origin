@@ -2887,8 +2887,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -15.150179, y: 1.3008124, z: -9.161851}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2990520458111659463}
   - {fileID: 2948705087020195833}
@@ -3005,6 +3005,9 @@ MonoBehaviour:
   target: {fileID: 0}
   rotationSpeed: 5
   playerInSight: 0
+  maxDistance: 0
+  peripheralVision: 0
+  wanderSpots: []
 --- !u!135 &6699810548169868254
 SphereCollider:
   m_ObjectHideFlags: 0
