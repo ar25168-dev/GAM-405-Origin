@@ -6,7 +6,7 @@ public class SkeletonAI : MonoBehaviour
     public Transform target; // Drag your target GameObject here in the Inspector
     public float rotationSpeed = 5f; // Adjust rotation speed as needed
 
-    private NavMeshAgent agent;
+    public NavMeshAgent agent;
     public bool playerInSight = false;
 
     [SerializeField] private float maxDistance;
@@ -16,15 +16,17 @@ public class SkeletonAI : MonoBehaviour
 
     void Start()
     {
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        
+        agent = this.GetComponent<NavMeshAgent>();
 
         // Ensure updateRotation is false so we can control it manually
         agent.updateRotation = false;
+
     }
 
     void Update()
     {
-
+       
         //set a condition to stop chasing player <<<<<<<<<
         playerInSight = CanISeePlayer();
 
