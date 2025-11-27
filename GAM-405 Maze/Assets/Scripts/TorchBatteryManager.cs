@@ -23,7 +23,7 @@ public class TorchBatteryManager : MonoBehaviour
     private void Start()
     {
         currentBattery = startBattery; // Set the current battery to the start battery when the game starts
-
+        //a
         InvokeRepeating(nameof(LoseBattery), 0, batteryLossTick); // Loses the battery at set interval of time.
     }
 

@@ -10,7 +10,7 @@ public class SceneLoader : MonoBehaviour
     public void pressedStartButton(InputAction.CallbackContext inputData)
     {
         LoadMainScene();
-        Debug.Log("Input Reciebed");
+        Debug.Log("Input Recieved");
     }
 
     public void LoadMainScene()

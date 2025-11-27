@@ -3,7 +3,8 @@ using UnityEngine.AI;
 
 public class SkeletonAI : MonoBehaviour
 {
-    public Transform target; // Drag your target GameObject here in the Inspector
+    public Transform player; // Drag your target GameObject here in the Inspector
+    private Transform target;
     public float rotationSpeed = 5f; // Adjust rotation speed as needed
 
     public NavMeshAgent agent;
@@ -13,14 +14,17 @@ public class SkeletonAI : MonoBehaviour
     [SerializeField] private float peripheralVision;
 
     [SerializeField] private GameObject[] wanderSpots;
+    [SerializeField] private float wanderRadius = 3f;
 
     void Start()
     {
-        
         agent = this.GetComponent<NavMeshAgent>();
 
         // Ensure updateRotation is false so we can control it manually
         agent.updateRotation = false;
+
+        target = wanderSpots[Random.Range(0, wanderSpots.Length - 1)].transform;
+        agent.SetDestination(target.position);
 
     }
 
@@ -30,23 +34,30 @@ public class SkeletonAI : MonoBehaviour
         //set a condition to stop chasing player <<<<<<<<<
         playerInSight = CanISeePlayer();
 
-        //If I can't see player, navigate to some pretermined spots
-
-
-        if (agent != null && target != null && playerInSight)
+        if(!playerInSight)
         {
+            if(Vector3.Distance(this.transform.position, target.position) < wanderRadius)
+            {
+                target = wanderSpots[Random.Range(0, wanderSpots.Length - 1)].transform;
+                agent.SetDestination(target.position);
+            }
+        }
+
+
+        if (agent != null && player != null && playerInSight)
+        {
+            target = player;
             // 1. Set the destination for the NavMeshAgent to handle pathfinding
             agent.SetDestination(target.position);
-
-            // 2. Handle the agent's rotation manually
-            FaceTarget();
         }
+
+        FaceTarget();
     }
 
     private bool CanISeePlayer()
     {
         Vector3 lookDirection = this.transform.forward.normalized;
-        Vector3 toPlayerVector = target.transform.position - this.transform.position;
+        Vector3 toPlayerVector = player.transform.position - this.transform.position;
         float distanceToPlayer = toPlayerVector.magnitude;
         Vector3 directionToPlayer = toPlayerVector.normalized;
 

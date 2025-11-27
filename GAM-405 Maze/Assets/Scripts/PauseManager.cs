@@ -1,31 +1,31 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class PauseManager : MonoBehaviour
 {
     public bool paused;
+    public GameObject pauseMenuUI;
 
-    public InputActionReference pauseInput;
-
-    private void Update()
+    
+    public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            TogglePauseUI();
+            pauseMenuUI.SetActive(!pauseMenuUI.activeSelf);
+            Cursor.visible = pauseMenuUI.activeSelf;
+            Cursor.lockState = pauseMenuUI.activeSelf ? CursorLockMode.None : CursorLockMode.Locked;
         }
-        
     }
 
-    public void TogglePause(InputAction.CallbackContext inputData)
+    
+    public void ResumeGame()
     {
-        Debug.Log("Did pausing work");
-        paused = !paused;
-        EventManager.InvokeTogglePause(paused);
+        pauseMenuUI.SetActive(false);
     }
 
-    public void TogglePauseUI()
+    public void Quit()
     {
-        paused = !paused;
-        EventManager.InvokeTogglePause(paused);
+        SceneManager.LoadScene("StartMenu");
+        Debug.Log("Quitting Game");
     }
 }
