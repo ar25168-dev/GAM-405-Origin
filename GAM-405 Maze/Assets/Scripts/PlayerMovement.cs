@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
@@ -15,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private Rigidbody rb;
 
+    private bool paused = false;
+
 
     void Start()
     {
@@ -30,17 +31,20 @@ public class PlayerMovement : MonoBehaviour
 
     void OnEnable()
     {
+        EventManager.TogglePause += PauseMovement;
         moveAction?.action.Enable();
     }
 
 
     void OnDisable()
     {
+        EventManager.TogglePause -= PauseMovement;
         moveAction?.action.Disable();
     }
 
     private void HandleMovement()
     {
+        if (paused) return;
         Vector3 inputDir = new Vector3(moveInput.x, 0f, moveInput.y);
         if (inputDir.sqrMagnitude > 1f) inputDir.Normalize();
 
@@ -51,5 +55,10 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         HandleMovement();
+    }
+
+    public void PauseMovement(bool pause)
+    {
+        
     }
 }

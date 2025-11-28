@@ -6,22 +6,21 @@ public class PauseManager : MonoBehaviour
     public bool paused;
     public GameObject pauseMenuUI;
 
-    
+    public void Start()
+    {
+        pauseMenuUI.SetActive(false);
+    }
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            pauseMenuUI.SetActive(!pauseMenuUI.activeSelf);
-            Cursor.visible = pauseMenuUI.activeSelf;
-            Cursor.lockState = pauseMenuUI.activeSelf ? CursorLockMode.None : CursorLockMode.Locked;
+            Time.timeScale = paused ? 1 : 0;
+            pauseMenuUI.SetActive(paused);
         }
     }
 
     
-    public void ResumeGame()
-    {
-        pauseMenuUI.SetActive(false);
-    }
 
     public void Quit()
     {

@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.Android;
 
 public class SkeletonAI : MonoBehaviour
 {
@@ -9,6 +11,10 @@ public class SkeletonAI : MonoBehaviour
 
     public NavMeshAgent agent;
     public bool playerInSight = false;
+    public Animator animator;
+    public bool isWalking;
+    public bool isRunning;
+    public bool isStunned;
 
     [SerializeField] private float maxDistance;
     [SerializeField] private float peripheralVision;
@@ -19,18 +25,45 @@ public class SkeletonAI : MonoBehaviour
     void Start()
     {
         agent = this.GetComponent<NavMeshAgent>();
+        animator = this.GetComponent<Animator>();
 
         // Ensure updateRotation is false so we can control it manually
         agent.updateRotation = false;
 
         target = wanderSpots[Random.Range(0, wanderSpots.Length - 1)].transform;
         agent.SetDestination(target.position);
+        isWalking = true;
 
     }
 
     void Update()
     {
-       
+        if (isStunned)
+        {
+            agent.isStopped = true;
+            target = wanderSpots[Random.Range(0, wanderSpots.Length - 1)].transform;
+            agent.SetDestination(target.position);
+        }
+        else
+        {
+            findPlayer();
+        }
+
+        if (isWalking)
+        {
+            animator.SetBool("iswalking", isWalking);
+        }
+
+       if (isRunning)
+        {
+            animator.SetBool("isrunning", isRunning);
+
+        }
+
+        if (CanISeePlayer())
+        {
+            isRunning = true;
+        }
         //set a condition to stop chasing player <<<<<<<<<
         playerInSight = CanISeePlayer();
 
@@ -40,6 +73,7 @@ public class SkeletonAI : MonoBehaviour
             {
                 target = wanderSpots[Random.Range(0, wanderSpots.Length - 1)].transform;
                 agent.SetDestination(target.position);
+                isWalking = true;
             }
         }
 
@@ -49,9 +83,27 @@ public class SkeletonAI : MonoBehaviour
             target = player;
             // 1. Set the destination for the NavMeshAgent to handle pathfinding
             agent.SetDestination(target.position);
+            isWalking = true;
+
+            
         }
 
         FaceTarget();
+    }
+
+    public void Stun()
+    {
+        isStunned = true;
+        animator.SetTrigger("lightstun");
+        agent.isStopped = true;
+    }
+
+    public void findPlayer()
+    {
+        agent.isStopped = false;
+        isStunned = false;
+        isWalking = true;
+        agent.SetDestination(target.position);
     }
 
     private bool CanISeePlayer()
@@ -65,11 +117,12 @@ public class SkeletonAI : MonoBehaviour
         {
             return false;
         }
-
         float dotProduct = Vector3.Dot(directionToPlayer, lookDirection);
-        Debug.Log(dotProduct);
+        //Debug.Log(dotProduct);
         if(dotProduct > peripheralVision)
         {
+            agent.speed = 6;
+
             //Add a raycast, see if raycast hits player or wall. If player, return true, if wall, return false;
             return true;
         }
@@ -103,6 +156,15 @@ public class SkeletonAI : MonoBehaviour
             Debug.Log("Player detected");
             playerInSight = true;
         }
+    }
+
+
+    public IEnumerator stuntimer()
+    {
+        Stun();
+        yield return new WaitForSeconds(5f);
+        findPlayer();
+
     }
 
 

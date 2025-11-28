@@ -1,16 +1,11 @@
+using System;
 using UnityEngine;
-
-public class PauseMenu : MonoBehaviour
-{
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+using System.Linq;
+using System.Collections.Generic;
+   
+    public static class EventManager
     {
-        
+        public static event Action<bool> TogglePause;
+        public static void InvokeTogglePause(bool pause) => TogglePause?.Invoke(pause);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}

@@ -36,12 +36,17 @@ public class TorchMechanic : MonoBehaviour
         {
             Debug.DrawRay(FirePoint.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
 
+            SkeletonAI skeletonAI = hit.collider.gameObject.GetComponent<SkeletonAI>();
+
+
 
             if (hit.collider.CompareTag("Enemy") && isHit == false && torchActive == true)
             {
                 Debug.Log(hit.collider.gameObject.tag);
                 skeletonAI.agent.isStopped = true;
                 isHit = true;
+
+                StartCoroutine(skeletonAI.stuntimer());
 
             }
             
@@ -59,7 +64,6 @@ public class TorchMechanic : MonoBehaviour
 
     public void TurnTorchOn()
     {
-        
 
         //turning torch on
         if (Input.GetKeyDown(KeyCode.Q) &&  torchActive == false)
@@ -76,10 +80,6 @@ public class TorchMechanic : MonoBehaviour
         }
 
         Shooting();
-
-       
-     
-         
 
         //shoot raycast from camera
         //if raycast hits enemy - gameobject tagged as enemy
