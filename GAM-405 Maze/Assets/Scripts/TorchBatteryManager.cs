@@ -1,3 +1,4 @@
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public enum TorchlightState
@@ -8,6 +9,8 @@ public enum TorchlightState
 }
 public class TorchBatteryManager : MonoBehaviour
 {
+    [Header("Options")]
+    
     [Tooltip("The speed that the battery is lost at.")] [Range(0f, 2f)] [SerializeField] float batteryLossTick = 0.5f;
     
     [Tooltip("This is the amount of battery that the player starts with.")][SerializeField] int startBattery = 100;
@@ -19,17 +22,20 @@ public class TorchBatteryManager : MonoBehaviour
     [Tooltip("Is the torch on?")] private bool torchIsOn;
 
     [Tooltip("They key that is required to be pressed to turn on/off the torch.")] [SerializeField] KeyCode ToggleKey = KeyCode.Q;
+    
 
     private void Start()
     {
         currentBattery = startBattery; // Set the current battery to the start battery when the game starts
-        //a
+        
         InvokeRepeating(nameof(LoseBattery), 0, batteryLossTick); // Loses the battery at set interval of time.
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(ToggleKey)) ToggleTorchlight(); // Toggles the falshlight
+
+        //if (state == TorchlightState.Off) TorchlightLight.SetActive(false);
     }
 
     public void GainBattery(int amount) // Handles the gaining of battery

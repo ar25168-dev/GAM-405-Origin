@@ -18,6 +18,8 @@ public class PauseManager : MonoBehaviour
             Time.timeScale = paused ? 1 : 0;
             pauseMenuUI.SetActive(paused);
         }
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     
