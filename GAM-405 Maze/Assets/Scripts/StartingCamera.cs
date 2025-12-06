@@ -15,7 +15,7 @@ public class StartingCamera : MonoBehaviour
 
     private IEnumerator ChangePriority()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1f);
         GetComponent<CinemachineCamera>().Priority = 5;
 
 

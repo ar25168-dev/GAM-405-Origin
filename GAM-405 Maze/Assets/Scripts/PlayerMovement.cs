@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
 
@@ -7,6 +8,10 @@ public class PlayerMovement : MonoBehaviour
 
 
     public float moveSpeed = 5f;
+
+    public GameObject losePanel;
+
+    public GameObject winPanel;
 
 
     [SerializeField] private Vector2 moveInput;
@@ -60,5 +65,32 @@ public class PlayerMovement : MonoBehaviour
     public void PauseMovement(bool pause)
     {
         
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Collided with Obstacle");
+            losePanel.SetActive(true);
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
+
+        
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Goal"))
+        {
+            Debug.Log("Reached Goal!");
+            winPanel.SetActive(true);
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 }

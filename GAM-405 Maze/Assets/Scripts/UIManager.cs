@@ -9,31 +9,54 @@ public class UIManager : MonoBehaviour
 
     public GameObject pausePanel;
 
+    public bool isPaused = false;
 
     void Update()
     {
-        PauseGame();
+        PauseGameUsingEsc();
     }
 
-    public void PauseGame()
-    { 
-        
-        
+    public void PauseGameUsingEsc()
+    {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Cursor.visible = true;
-            pausePanel.SetActive(true);
-            Time.timeScale = 0f;
-            
+            if (!isPaused)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                pausePanel.SetActive(true);
+                Time.timeScale = 0f;
+                isPaused = true;
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                Debug.Log("Resuming Game");
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                pausePanel.SetActive(false);
+                isPaused = false;
+            }
         }
-      
-
     }
 
     public void ResumeGame()
     {
-      pausePanel.SetActive(false);
-      Time.timeScale = 1f;
+        Time.timeScale = 1f;
+        Debug.Log("Resuming Game");
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        pausePanel.SetActive(false);
+        isPaused = false;
+    }
+
+    public void PauseGame()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        pausePanel.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
     }
 
     void Start()
